@@ -15,30 +15,18 @@ import Obelisk.Generated.Static
 
 import Reflex.Dom.Core
 
-import Common.Paragraphs
 import Common.Route
 
-import Header
+import PageIndex
 
--- This runs in a monad that can be run on the client or the server.
--- To run code in a pure client or pure server context, use one of the
--- `prerender` functions.
 frontend :: Frontend (R FrontendRoute)
 frontend = Frontend
   { _frontend_head = do
       el "title" $ text "TODO List"
       elAttr "link" ("href" =: $(static "main.css") <> "type" =: "text/css" <> "rel" =: "stylesheet") blank
   , _frontend_body = do
-      header
+      pageIndex
 
-    --   TODO: Colocar rotas
-
-      elAttr "div" ("class" =: "main") $ do
-        el "p" $ text $ T.pack pHome01
-        el "p" $ text $ T.pack pHome02
-        el "p" $ text $ T.pack pHome03
-        el "p" $ text $ T.pack pHome04
-      
       -- `prerender` and `prerender_` let you choose a widget to run on the server
       -- during prerendering and a different widget to run on the client with
       -- JavaScript. The following will generate a `blank` widget on the server and
