@@ -18,21 +18,16 @@ pageCreate = do
                     el "legend" $ text "Adicionar"
                     el "div" $ do
                         el "label" $ text "Tarefa"
-                        cxtext
+                        input
 
+input :: (DomBuilder t m, MonadHold t m, PostBuild t m) => m ()
+input = do
+    evt <- event
+    output <- holdDyn "" evt
+    el "p" (dynText output)
 
-
-click :: DomBuilder t m => m (Event t T.Text)
-click = do
+event :: DomBuilder t m => m (Event t T.Text)
+event = do
     t <- inputElement def
-    (evt, _) <- el' "button" (text "Submit")
+    (evt, _) <- el' "button" (text "Gravar")
     return $ attachPromptlyDynWith const (_inputElement_value t) (domEvent Click evt)
-
-
-
-cxtext :: (DomBuilder t m, MonadHold t m, PostBuild t m) => m ()
-cxtext = do
-    evt <- click
-    resultado <- holdDyn "" evt
-    el "p" (dynText resultado)
-

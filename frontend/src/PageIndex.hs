@@ -3,7 +3,6 @@
 
 module PageIndex where
 
-import Control.Monad
 import Control.Monad.Fix
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
